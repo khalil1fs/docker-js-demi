@@ -15,6 +15,7 @@ stage("stage") {
   steps {
 
   }
+}
   
   stage("test") {
       steps {
@@ -31,7 +32,6 @@ stage("stage") {
   
     } 
   }
-}
 
 node {
   // groovy script
