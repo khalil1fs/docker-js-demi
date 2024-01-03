@@ -13,7 +13,7 @@ pipeline {
 
 stage("stage") {
   steps {
-
+echo 'WALO'
   }
 }
   
