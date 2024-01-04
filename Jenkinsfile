@@ -2,13 +2,34 @@
 pipeline {
 
   agent any
+  
+  parameters {
+
+    // params.VERSION : to access it
+    string(name: 'VERSION', defaultValue: '', description: 'version of prod')
+    booleanParam(name: 'executeTests', defaultValue: true, description: '')
+  }
+  
+  tools {
+    // the one we define in configuration
+    maven 'Maven'
+    
+  }
+  
+  
   environment {
     VERSION = '1.5.1'
+    SERVER_CREDENTIALS = credentials('admin')
   }
   
 
   stages {
     stage("build") {
+      when {
+        expression {
+          params.executeTests
+        }      
+      }
       steps {
         //sh 'npm install'
         //sh 'npm build'
@@ -24,6 +45,7 @@ pipeline {
 stage("stage") {
   steps {
 echo 'WALO'
+    sh "${SERVER_CREDENTIALS}"
   }
 }
   
@@ -36,6 +58,12 @@ echo 'WALO'
       stage("deploy") {
       steps {
           echo 'deploying the app'
+          withCredentials([
+            usernamePassword(credentials: 'admin', usernameVariable: USER, passwordVariable: PWD)
+          ]) {
+            sh "some script ${USER} ${PWD}"            
+          }
+        
       }      
     } 
 
