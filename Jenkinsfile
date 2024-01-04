@@ -2,13 +2,18 @@
 pipeline {
 
   agent any
+  environment {
+    VERSION = '1.5.1'
+  }
+  
 
   stages {
     stage("build") {
       steps {
         //sh 'npm install'
         //sh 'npm build'
-        echo 'building the app'
+        // Printing an env variable
+        echo "building the app ${VERSION}"
       script {
         def test = 2 + 2 > 3 ? 'cool' : 'not cool'
         echo test
