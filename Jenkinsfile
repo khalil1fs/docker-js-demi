@@ -1,3 +1,4 @@
+// ENV VARIABLE FOR JENKINS: http://localhost:8080/env-vars.html/
 pipeline {
 
   agent any
